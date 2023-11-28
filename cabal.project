@@ -3,3 +3,9 @@ with-compiler: ghc-9.4.8
 
 packages:
     ./.
+
+source-repository-package
+    type: git
+    location: https://github.com/sevanspowell/bindings-GLFW.git
+    tag: 2a6ecef30b8e0d8805b28bfa974d06782ef8a845
+    --sha256: 0y8bfil2wqwcw85zf6fzvivd70d960775m991phw5z48jkd1dpr2

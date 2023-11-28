@@ -23,6 +23,39 @@ common project-config
 executable dross
     import:           project-config
     build-depends:    base >=4.7 && <5
+                    , async
+                    , megaparsec
+                    , exceptions
+                    , dunai
+                    , free
+                    , parser-combinators
+                    , containers
+                    , mmorph
+                    , derive-storable
+                    , unordered-containers
+                    , text
+                    , lens
+                    , resourcet
+                    , gltf-loader
+                    , chronos
+                    , rosezipper
+                    , torsor
+                    , topograph
+                    , linear
+                    , OpenGL
+                    , bitmap
+                    , stb-image
+                    , stm
+                    , vector
+                    , bytestring
+                    , mtl
+                    , bearriver
+                    -- The Nixpkgs package set does not contain the package: Gdi32
+                    , GLFW-b
+                    -- , bindings-GLFW
+                    -- The Nixpkgs package set does not contain the package: vulkan-1 (system dependency)
+                    -- , vulkan
     hs-source-dirs:   src
+
     default-language: Haskell2010
     main-is:  Main.hs

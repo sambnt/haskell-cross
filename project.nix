@@ -31,6 +31,22 @@ haskell-nix.cabalProject' [
                 "--ghc-option=-optl=-L${pkgs.gmp6.override { withStatic = true; }}/lib"
                 "--ghc-option=-optl=-L${pkgs.pkgsStatic.zlib}/lib"
               ];
+            # packages.bindings-GLFW.components.library.ghcOptions = [ "-fasdlfjsd" ];
+          }
+          {
+            packages.bindings-GLFW.components.library.libs =
+              pkgs.lib.mkForce (
+                pkgs.lib.optionals   pkgs.stdenv.isDarwin  (with pkgs.darwin.apple_sdk.frameworks; [ AGL Cocoa OpenGL IOKit Kernel CoreVideo pkgs.darwin.CF ]) ++
+                pkgs.lib.optionals (!pkgs.stdenv.isDarwin) (with pkgs.xorg; [ libXext libXi libXrandr libXxf86vm libXcursor libXinerama pkgs.libGL ])
+              );
+            # packages.dross.components.exes.dross.release = true;
+            # packages.dross.hsPkgs.bindings-GLFW.patches = [ ./lowercase-gdi32.patch ];
+            # packages.bindings-GLFW.patches = [ ./lowercase-gdi32.patch ];
+            # packages.bindings-GLFW.postUnpack = "echo 'hi'";
+            # packages.dross.modules = [ {
+            #   packages.bindings-GLFW.patches = [ ./lowercase-gdi32.patch ];
+            # } ];
+            # packages.bindings-GLFW.rhcOptions = ["-Werror"];
           }
         ];
       }
