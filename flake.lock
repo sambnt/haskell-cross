@@ -561,7 +561,7 @@
         "haskellNix": "haskellNix",
         "nixpkgs": [
           "haskellNix",
-          "nixpkgs-2305"
+          "nixpkgs-unstable"
         ],
         "utils": "utils"
       }
