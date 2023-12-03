@@ -81,6 +81,11 @@ Package ‘libX11-1.8.7’ in ... is not available on the requested hostPlatform
 
 - Let's start by trying to compile JUST Glfw
 
+- https://github.com/haskell/hsc2hs#cross-compilation Only certain directives are supported in cross-compilation mode
+- #num is a custom construct defined here: https://github.com/rethab/bindings-dsl/blob/10d8a5217ca580b3d2678dd4aa9454e9362dd598/bindings.dsl.h#L102
+- Therefore the #num directives used in bindings-GLFW https://github.com/bsl/bindings-GLFW/blob/972f33a8665e0fd770cde9d228173e633f011a97/Bindings/GLFW.hsc#L70 won't work in cross-compilation mode.
+- 
+
 ## Further Reading
 
 https://matthewbauer.us/blog/beginners-guide-to-cross.html
