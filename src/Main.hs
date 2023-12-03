@@ -7,10 +7,21 @@ import Control.Monad (when)
 import Control.Concurrent (threadDelay)
 import Control.Exception (bracket)
 import Vulkan.Core10.Enums.PipelineBindPoint (PipelineBindPoint(PipelineBindPoint))
+import qualified Vulkan as Vk
+import qualified Vulkan.Zero as Vk
+import qualified Data.Vector as Vector
 
 main = do
-  let x = PipelineBindPoint 0
-  putStrLn $ "hello world " <> show x
+  let createInfo = Vk.InstanceCreateInfo
+        ()                                  -- Chain
+        Vk.zero                             -- Flags
+        (Just $ Vk.ApplicationInfo (Just "Dross") (Vk.MAKE_API_VERSION 1 0 0) (Just "No engine") (Vk.MAKE_API_VERSION 1 0 0) (Vk.MAKE_API_VERSION 1 0 0))
+        (Vector.fromList [ "VK_LAYER_KHRONOS_validation" ]) -- enabledLayerNames
+        (Vector.fromList [ ])
+
+  inst <- Vk.createInstance createInfo Nothing
+
+  putStrLn $ "hello world " <> show inst
 
 -- main = do
 --   withWindow 800 600 "Hello World" $ \win -> do

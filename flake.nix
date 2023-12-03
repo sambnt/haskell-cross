@@ -46,6 +46,7 @@
                 vulkan-loader = self.callPackage ./vulkan-loader.nix {
                   inherit (self.darwin) moltenvk;
                 };
+                vulkan-validation-layers = self.callPackage ./vulkan-validation-layers.nix {};
               })
             ];
           };
