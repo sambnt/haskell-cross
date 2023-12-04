@@ -13,7 +13,7 @@
   outputs = { self, nixpkgs, utils, haskellNix, ... } @ inputs:
     let
       # The platforms you can build from (buildPlatform).
-      supportedSystems = [ "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ];
+      supportedSystems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
     in
       utils.lib.eachSystem supportedSystems (system:
         let
@@ -31,7 +31,7 @@
                 # for more information and other ways of doing this.
                 Gdi32 = null;
                 # The vulkan haskell package refers to the vulkan library on
-                # windows as "vulkan-1". It's true, the vulkan DLL produced by
+                # Windows as "vulkan-1". It's true, the vulkan DLL produced by
                 # vulkan-loader is "vulkan-1.dll", but nixpkgs can't use that
                 # information, we need to direct it to vulkan-loader in order to
                 # get the vulkan-1.dll.
@@ -46,6 +46,7 @@
                 vulkan-loader = self.callPackage ./vulkan-loader.nix {
                   inherit (self.darwin) moltenvk;
                 };
+                # Fix build of vulkan-validation-layers cross-compiled to Windows
                 vulkan-validation-layers = self.callPackage ./vulkan-validation-layers.nix {};
               })
             ];
@@ -53,12 +54,12 @@
 
           inherit (pkgs) lib stdenv;
 
-          project                 = import ./project.nix pkgs.haskell-nix;
-          projectWindowsCross     = import ./project.nix pkgs.pkgsCross.mingwW64.haskell-nix;
-          projectWindowsStaticCross     = import ./project.nix pkgs.pkgsCross.mingwW64.pkgsStatic.haskell-nix;
-          projectMuslCross        = import ./project.nix pkgs.pkgsCross.musl64.haskell-nix;
-          projectDarwinIntelCross = import ./project.nix pkgs.pkgsCross.x86_64-darwin.haskell-nix;
-          projectDarwinARMCross   = import ./project.nix pkgs.pkgsCross.aarch64-darwin.haskell-nix;
+          project                   = import ./project.nix pkgs.haskell-nix;
+          projectWindowsCross       = import ./project.nix pkgs.pkgsCross.mingwW64.haskell-nix;
+          projectWindowsStaticCross = import ./project.nix pkgs.pkgsCross.mingwW64.pkgsStatic.haskell-nix;
+          projectMuslCross          = import ./project.nix pkgs.pkgsCross.musl64.haskell-nix;
+          projectDarwinIntelCross   = import ./project.nix pkgs.pkgsCross.x86_64-darwin.haskell-nix;
+          projectDarwinARMCross     = import ./project.nix pkgs.pkgsCross.aarch64-darwin.haskell-nix;
         in
         {
           inherit haskellNix pkgs project projectWindowsCross projectWindowsStaticCross projectMuslCross;
