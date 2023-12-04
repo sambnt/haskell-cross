@@ -53,7 +53,7 @@ executable dross
                     , bearriver
                     , vector
                     -- The Nixpkgs package set does not contain the package: Gdi32
-                    -- , GLFW-b
+                    , GLFW-b
                     -- , bindings-GLFW
                     -- The Nixpkgs package set does not contain the package: vulkan-1 (system dependency)
                     , vulkan

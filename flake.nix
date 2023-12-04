@@ -55,12 +55,13 @@
 
           project                 = import ./project.nix pkgs.haskell-nix;
           projectWindowsCross     = import ./project.nix pkgs.pkgsCross.mingwW64.haskell-nix;
+          projectWindowsStaticCross     = import ./project.nix pkgs.pkgsCross.mingwW64.pkgsStatic.haskell-nix;
           projectMuslCross        = import ./project.nix pkgs.pkgsCross.musl64.haskell-nix;
           projectDarwinIntelCross = import ./project.nix pkgs.pkgsCross.x86_64-darwin.haskell-nix;
           projectDarwinARMCross   = import ./project.nix pkgs.pkgsCross.aarch64-darwin.haskell-nix;
         in
         {
-          inherit haskellNix pkgs project projectWindowsCross projectMuslCross;
+          inherit haskellNix pkgs project projectWindowsCross projectWindowsStaticCross projectMuslCross;
           # Don't do this, we're missing patches from haskell.nix if we go raw nixpkgs route.
           # x = pkgs.pkgsCross.mingwW64.haskellPackages.bindings-GLFW.overrideAttrs (old: { buildInputs = []; librarySystemDepends = []; });
         } // lib.optionalAttrs stdenv.buildPlatform.isDarwin {
