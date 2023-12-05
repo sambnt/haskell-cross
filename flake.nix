@@ -35,7 +35,11 @@
         in {
           inherit nixpkgs project projectWindowsCross projectWindowsStaticCross projectMuslCross;
 
-          legacyPackges = pkgs;
+          legacyPackages = pkgs;
+
+          packages = {
+            linux = pkgs.mkLinuxPackage project.hsPkgs.dross.components.exes.dross "dross";
+          };
         } // nixpkgs.lib.optionalAttrs (system == "aarch64-darwin") {
           # Only Mac can cross-compile for darwin.
           inherit projectDarwinIntelCross;
@@ -71,6 +75,8 @@
 
           # Fix build of vulkan-validation-layers cross-compiled to Windows
           vulkan-validation-layers = final.callPackage ./vulkan-validation-layers.nix {};
+
+          mkLinuxPackage = final.callPackage ./linux-package.nix {};
         };
       };
 }
