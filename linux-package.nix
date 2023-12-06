@@ -33,6 +33,12 @@ in
       chmod +w ${bin}
       patchelf --set-interpreter ./lib/ld-linux-x86-64.so.2 --set-rpath ./lib --force-rpath ${bin}
       chmod -w ${bin}
+      # We also need to patch the run-time search path of the shared objects
+      # we're including, as some of the shared objects may too dynamically link
+      # on other shared objects.
+      chmod +w ./lib/lib*
+      patchelf --set-rpath ./lib --force-rpath ./lib/lib*
+      chmod -w ./lib/lib*
 
       # Finally, we can zip up our binary and the subfolder holding our shared objects.
       # This zip file is the output artefact of this derivation and can be uploaded to AWS

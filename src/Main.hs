@@ -53,8 +53,8 @@ main = do
              (Vk.MAKE_API_VERSION 1 0 0)
              (Vk.MAKE_API_VERSION 1 0 0)
           )
-          -- (Vector.fromList []) -- enabledLayerNames
-          (Vector.fromList [ "VK_LAYER_KHRONOS_validation" ]) -- enabledLayerNames
+          (Vector.fromList []) -- enabledLayerNames
+          -- (Vector.fromList [ "VK_LAYER_KHRONOS_validation" ]) -- enabledLayerNames
           -- (Vector.fromList [ "VK_LAYER_RENDERDOC_Capture" ]) -- enabledLayerNames
           (glfwExts)
 
