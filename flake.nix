@@ -54,7 +54,7 @@
           # See
           # https://input-output-hk.github.io/haskell.nix/tutorials/pkg-map.html#mapping-non-haskell-dependencies-to-nixpkgs
           # for more information and other ways of doing this.
-          Gdi32 = null;
+          Gdi32 = final.gdi32;
 
           # The vulkan haskell package refers to the vulkan library on
           # Windows as "vulkan-1". It's true, the vulkan DLL produced by
