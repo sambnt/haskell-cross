@@ -56,11 +56,9 @@
           # for more information and other ways of doing this.
           Gdi32 = final.gdi32;
 
-          # The vulkan haskell package refers to the vulkan library on
-          # Windows as "vulkan-1". It's true, the vulkan DLL produced by
-          # vulkan-loader is "vulkan-1.dll", but nixpkgs can't use that
-          # information, we need to direct it to vulkan-loader in order to
-          # get the vulkan-1.dll.
+          # The vulkan haskell package refers to the vulkan library on Windows
+          # as "vulkan-1". But in Nixpkgs, that DLL is found in "vulkan-loader".
+          # Therefore map vulkan-1 to vulkan-loader.
           vulkan-1 = final.vulkan-loader;
 
           # Fix build of GLFW cross-compiled to Windows
