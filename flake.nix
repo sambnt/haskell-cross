@@ -67,9 +67,12 @@
           };
 
           # Fix build of vulkan-loader cross-compiled to Windows
-          vulkan-loader = final.callPackage ./vulkan-loader.nix {
-            inherit (final.darwin) moltenvk;
-          };
+          vulkan-loader = prev.vulkan-loader.overrideAttrs (finalAttrs: prevAttrs: {
+            buildInputs = [ final.vulkan-headers ]
+                          ++ final.lib.optionals (final.stdenv.isLinux) [ final.libX11 final.libxcb final.libXrandr final.wayland ];
+            cmakeFlags = prevAttrs.cmakeFlags
+              ++ final.lib.optional ((final.stdenv.buildPlatform != final.stdenv.hostPlatform) && final.stdenv.hostPlatform.isWindows) "-DUSE_MASM=OFF";
+          });
 
           # Fix build of vulkan-validation-layers cross-compiled to Windows
           vulkan-validation-layers = final.callPackage ./vulkan-validation-layers.nix {};
