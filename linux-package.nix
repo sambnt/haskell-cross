@@ -1,3 +1,5 @@
+# Based off Jente Hidskes' AWS Lambda derivation:
+# https://www.hjdskes.nl/blog/haskell-nix-aws-lambda/
 { lib
 , stdenv
 , patchelf
@@ -41,8 +43,7 @@ in
       chmod -w ./lib/lib*
 
       # Finally, we can zip up our binary and the subfolder holding our shared objects.
-      # This zip file is the output artefact of this derivation and can be uploaded to AWS
-      # Lambda as-is.
+      # This zip file is the output artefact of this derivation.
       zip -qr ${bin}.zip .
 
       rm -r lib ${bin}
