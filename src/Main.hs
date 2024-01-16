@@ -44,8 +44,8 @@ main = do
     glfwExts <- Vector.fromList <$> traverse (fmap BSC.pack . peekCString) rawExts
 
     let createInfo = Vk.InstanceCreateInfo
-          ()                                  -- Chain
-          Vk.zero                             -- Flags
+          ()                                                 -- Chain
+          (Vk.INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR) -- Flags (Need this flag for MacOS: https://github.com/KhronosGroup/MoltenVK#using-the-vulkan-sdk)
           (Just $ Vk.ApplicationInfo
              (Just "Dross")
              (Vk.MAKE_API_VERSION 1 0 0)
@@ -56,7 +56,9 @@ main = do
           (Vector.fromList []) -- enabledLayerNames
           -- (Vector.fromList [ "VK_LAYER_KHRONOS_validation" ]) -- enabledLayerNames
           -- (Vector.fromList [ "VK_LAYER_RENDERDOC_Capture" ]) -- enabledLayerNames
-          (glfwExts)
+          ( glfwExts
+            <> Vector.fromList [ "VK_KHR_portability_enumeration" ] -- Required for MacOS (https://github.com/KhronosGroup/MoltenVK#using-the-vulkan-sdk)
+          )
 
     props <- Vk.enumerateInstanceLayerProperties
     putStrLn $ "props: " <> show props
