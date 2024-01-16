@@ -69,7 +69,7 @@
           # Fix build of vulkan-loader cross-compiled to Windows
           vulkan-loader = prev.vulkan-loader.overrideAttrs (finalAttrs: prevAttrs: {
             buildInputs = [ final.vulkan-headers ]
-                          ++ final.lib.optionals (final.stdenv.isLinux) [ final.libX11 final.libxcb final.libXrandr final.wayland ];
+                          ++ final.lib.optionals (final.stdenv.isLinux) [ final.xorg.libX11 final.xorg.libxcb final.xorg.libXrandr final.wayland ];
             cmakeFlags = prevAttrs.cmakeFlags
               ++ final.lib.optional ((final.stdenv.buildPlatform != final.stdenv.hostPlatform) && final.stdenv.hostPlatform.isWindows) "-DUSE_MASM=OFF";
           });
