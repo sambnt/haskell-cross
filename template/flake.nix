@@ -58,7 +58,7 @@
       in {
         build = forAllSystems (system: self.packages.${system}.default);
 
-        dist-win64 = self.packages.x86_64-linux.foobar-win64;
+        dist-win64 = pkgs.zipDerivation self.packages.x86_64-linux.foobar-win64;
         dist-linux64 = pkgs.mkLinuxPackage self.packages.x86_64-linux.default "foobar";
 
         release = pkgs.releaseTools.aggregate

@@ -78,6 +78,7 @@
           vulkan-validation-layers = final.callPackage ./vulkan-validation-layers.nix {};
 
           mkLinuxPackage = final.callPackage ./linux-package.nix {};
+          zipDerivation = final.callPackage ./zip-derivation.nix {};
         };
 
         templates = {
