@@ -1,37 +1,19 @@
-# Haskell Cross-Compilation Example
+# Haskell Cross-Compilation
 
-Compile the project (native):
+A collection of tools to help compile and distribute Haskell programs for Windows, Mac, and Linux.
 
-```
-nix build .#project.x86_64-linux.hsPkgs.dross.components.exes.dross
-./result/bin/dross
-```
+Specifically, a graphical application using GLFW and Vulkan.
 
-Cross-compile for Windows:
+To get started:
 
 ```
-nix build .#projectWindowsCross.x86_64-linux.hsPkgs.dross.components.exes.dross
-nix-shell -p wineWowPackages.base
-wine ./result/bin/dross.exe
+nix flake init --template github:/sambnt/dross
+# Build for Linux
+nix build .#hydraJobs.dist-linux64
+# Build for Windows
+nix build .#hydraJobs.dist-win64
+# SEE README.md for more.
 ```
-
-Cross-compile static binary (musl):
-
-```
-nix build .#projectMuslCross.x86_64-linux.hsPkgs.dross.components.exes.dross
-./result/bin/dross
-```
-
-## Files
-
-- `flake.nix`:
-- `flake.lock`: 
-- `project.nix`: haskell.nix project expression
-
-## Terms
-
-- `buildPlatform`: Platform project is building on.
-- `hostPlatform`: Platform project is building for (cross-compilation target).
 
 ## Fixing
 
@@ -84,7 +66,6 @@ Package ‘libX11-1.8.7’ in ... is not available on the requested hostPlatform
 - https://github.com/haskell/hsc2hs#cross-compilation Only certain directives are supported in cross-compilation mode
 - #num is a custom construct defined here: https://github.com/rethab/bindings-dsl/blob/10d8a5217ca580b3d2678dd4aa9454e9362dd598/bindings.dsl.h#L102
 - Therefore the #num directives used in bindings-GLFW https://github.com/bsl/bindings-GLFW/blob/972f33a8665e0fd770cde9d228173e633f011a97/Bindings/GLFW.hsc#L70 won't work in cross-compilation mode.
-- 
 
 ## Further Reading
 
