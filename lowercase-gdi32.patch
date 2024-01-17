@@ -1,0 +1,13 @@
+diff --git a/bindings-GLFW.cabal b/bindings-GLFW.cabal
+index 26ae4c8..b702cea 100644
+--- a/bindings-GLFW.cabal
++++ b/bindings-GLFW.cabal
+@@ -201,7 +201,7 @@ library
+         glfw/src/wgl_context.c
+       extra-libraries:
+         opengl32
+-        Gdi32
++        gdi32
+       cc-options: -D_GLFW_WIN32
+ 
+   if flag(ExposeNative)
