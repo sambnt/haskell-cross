@@ -7,7 +7,7 @@ Specifically, a graphical application using GLFW and Vulkan.
 To get started:
 
 ```
-nix flake init --template github:/sambnt/dross
+nix flake init --template github:/sambnt/haskell-cross
 # Build for Linux
 nix build .#hydraJobs.dist-linux64
 # Build for Windows

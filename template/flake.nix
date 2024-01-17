@@ -11,10 +11,10 @@
       url = "github:input-output-hk/iohk-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    dross.url = "github:sambnt/dross/complex";
+    haskell-cross.url = "github:sambnt/haskell-cross";
   };
 
-  outputs = { self, nixpkgs, haskellNix, iohkNix, dross, ... } @ inputs:
+  outputs = { self, nixpkgs, haskellNix, iohkNix, haskell-cross, ... } @ inputs:
     let
       inherit (nixpkgs) lib;
 
@@ -25,7 +25,7 @@
       overlays = [
         haskellNix.overlay
         iohkNix.overlays.utils
-        dross.overlays.default
+        haskell-cross.overlays.default
       ];
 
       pkgsFor = system: import nixpkgs {
