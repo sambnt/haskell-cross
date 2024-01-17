@@ -38,7 +38,17 @@
         zipDerivation = final.callPackage ./zip-derivation.nix {};
       };
 
-      haskell-nix-module = {
+      haskell-nix = { pkgs, config, ... }: {
+        packages.bindings-GLFW.components.library.libs =
+          pkgs.lib.mkForce (
+            pkgs.lib.optionals pkgs.stdenv.hostPlatform.isDarwin  (with pkgs.darwin.apple_sdk.frameworks; [ AGL Cocoa OpenGL IOKit Kernel CoreVideo pkgs.darwin.CF ]) ++
+            pkgs.lib.optionals pkgs.stdenv.hostPlatform.isLinux (with pkgs.xorg; [ libXext libXi libXrandr libXxf86vm libXcursor libXinerama pkgs.libGL libX11 ])
+          );
+        packages.GLFW-b.components.library.libs =
+          pkgs.lib.mkForce (
+            pkgs.lib.optionals pkgs.stdenv.hostPlatform.isDarwin  (with pkgs.darwin.apple_sdk.frameworks; [ AGL Cocoa OpenGL IOKit Kernel CoreVideo pkgs.darwin.CF ]) ++
+            pkgs.lib.optionals pkgs.stdenv.hostPlatform.isLinux (with pkgs.xorg; [ libXext libXi libXrandr libXxf86vm libXcursor libXinerama pkgs.libGL libX11 ])
+          );
       };
     };
 
