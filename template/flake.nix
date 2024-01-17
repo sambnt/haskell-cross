@@ -33,11 +33,15 @@
         inherit (haskellNix) config;
       };
 
+      projectFor = system: let
+        pkgs = pkgsFor system;
+      in
+        import ./project.nix haskell-cross pkgs.haskell-nix;
+
     in
     {
       packages = forAllSystems (system: let
-        pkgs = pkgsFor system;
-        project = import ./project.nix pkgs.haskell-nix;
+        project = projectFor system;
       in {
         foobar = project.hsPkgs.foobar.components.exes.foobar;
         default = self.packages.${system}.foobar;
@@ -46,8 +50,7 @@
       });
 
       devShells = forAllSystems (system: let
-        pkgs = pkgsFor system;
-        project = import ./project.nix pkgs.haskell-nix;
+        project = projectFor system;
       in {
         default = project.shell;
       });
