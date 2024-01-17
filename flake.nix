@@ -79,5 +79,14 @@
 
           mkLinuxPackage = final.callPackage ./linux-package.nix {};
         };
+
+        templates = {
+          cross = {
+            path = ./template;
+            description = "An haskell.nix template for cross-compiled Haskell.";
+          };
+        };
+
+        defaultTemplate = self.templates.cross;
       };
 }
