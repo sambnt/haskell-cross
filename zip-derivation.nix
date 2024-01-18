@@ -13,9 +13,8 @@ stdenv.mkDerivation {
   installPhase = ''
     mkdir $out/
 
-    # Copy the derivation here
-    cp -r ${drv} ./
-
-    zip -qr $out/${drv.name}.zip .
+    pushd ${drv}
+    zip -r $out/${drv.name}.zip ./*
+    popd
   '';
 }
